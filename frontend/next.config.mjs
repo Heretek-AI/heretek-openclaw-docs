@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/heretek-openclaw",
+  basePath: "/heretek-openclaw-docs",
   images: {
     unoptimized: true
   },
