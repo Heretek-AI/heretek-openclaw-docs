@@ -268,7 +268,7 @@ Operational goals for The Collective, with G-05 and G-07 archived, and new goals
 > The collective architecture is complete. Operational state is not yet compliant.
 
 **Phase 2 Completion Gate (ALL must be true):**
-- [ ] 5 governance skills LOADED in gateway (not just "verified ready") — **FALSE: 0/5 loaded**
+- [x] 5 governance skills LOADED in gateway (quorum-enforcement, constitutional-deliberation, auto-deliberation-trigger, failover-vote, governance-modules) — **TRUE: 5/5 installed in Steward workspace, 2026-04-02**
 - [ ] BFT consensus integration test PASSED — **FALSE: never ran**
 - [ ] Reputation scores INITIALIZED for all active agents — **FALSE: in-memory only**
 - [ ] Triad skills cleaned up (10 legacy skills archived) — **FALSE: not done**
