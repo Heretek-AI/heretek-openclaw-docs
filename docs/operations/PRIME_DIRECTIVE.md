@@ -1,8 +1,8 @@
 # PRIME DIRECTIVE — The Collective
 
-**Version:** 4.0.0 (Restored & Evolved)  
+**Version:** 5.0.0 (Restored & Evolved)  
 **Created:** 2026-03-29  
-**Last Updated:** 2026-04-01  
+**Last Updated:** 2026-04-02  
 **Status:** Active  
 **Lineage:** Tabula_Myriad → The Collective
 
@@ -28,9 +28,9 @@ The Collective inherits institutional knowledge from the Tabula_Myriad collectiv
 | Metric | Status | Details |
 |--------|--------|---------|
 | **Deployment** | ✅ v2.1.0 | Docker Compose with 7 services |
-| **Agents** | ✅ 23 active | All configured with qwen3.5:cloud |
+| **Agents** | ✅ 22 active | All configured with qwen3.5:cloud |
 | **Plugins** | ✅ 44 loaded | Including 5 Heretek-AI custom plugins |
-| **Skills** | ✅ 47 ready | 44 bundled + 3 managed |
+| **Skills** | ✅ 46 ready | 46 in core repo, 5 governance skills deployed, 28 gateway-compatible |
 | **Model Routing** | ✅ LiteLLM | Unified gateway at port 4000 |
 | **Observability** | ✅ Langfuse V3 | Tracing, metrics, evals |
 | **Memory** | ✅ pgvector | PostgreSQL with vector search |
@@ -133,7 +133,7 @@ All plugins tested and functional as of 2026-04-01.
 
 ## Agent Roster
 
-### Current Active Agents (23)
+### Current Active Agents (22)
 
 | Agent | Role | Model | Status |
 |-------|------|-------|--------|
@@ -159,7 +159,6 @@ All plugins tested and functional as of 2026-04-01.
 | **nexus** | Integration hub — cross-agent communication | qwen3.5:cloud | ✅ Active |
 | **perceiver** | Sensory input processing | qwen3.5:cloud | ✅ Active |
 | **prism** | Perspective splitting — multi-view analysis | qwen3.5:cloud | ✅ Active |
-| **sentinel-prime** | Advanced security monitoring | qwen3.5:cloud | ✅ Active |
 
 ### Failover Agents
 
@@ -229,19 +228,22 @@ Three primary repositories:
 
 ## Operational Goals
 
-### Active Goal Tracking (G-01 through G-07)
+### Active Goal Tracking (G-01 through G-10)
 
-From Tabula_Myriad restoration, these operational goals remain active:
+Operational goals for The Collective, with G-05 and G-07 archived, and new goals G-08 through G-10 added:
 
 | ID | Goal | Owner | Track | Timeline | Status |
 |----|------|-------|-------|----------|--------|
-| **G-01** | Inter-Node HTTP State Sync | Beta+Alpha | Expansive | 3wk | 🟡 In Progress |
-| **G-02** | Deliberation Input Layer | Beta | Capable | 2wk | 🟡 In Progress |
-| **G-03** | Self-Patch Config Engine | Beta | Autonomous | 2wk | 🟡 In Progress |
-| **G-04** | RAG over Deliberation History | Beta | Capable | 3wk | 🟡 In Progress |
-| **G-05** | Skill Catalog Population | Charlie | Capable | 1-2wk | ✅ Complete |
-| **G-06** | Contributor Onboarding Pilot | Charlie | Expansive | 2wk | 🟡 In Progress |
-| **G-07** | Pending Vote Nudge Automation | Beta | Autonomous | 1wk | ✅ Complete |
+| **G-01** | Inter-Node HTTP State Sync | Beta+Alpha | Phase 3 Pre-req | 3wk | 🟡 In Progress |
+| **G-02** | Deliberation Input Layer | Beta | Phase 3 Pre-req | 2wk | 🟡 In Progress |
+| **G-03** | Self-Patch Config Engine | Beta | Phase 3 Pre-req | 2wk | 🟡 In Progress |
+| **G-04** | RAG over Deliberation History | Beta | Phase 3 Pre-req | 3wk | 🟡 In Progress |
+| **G-05** | Skill Catalog Population | Charlie | Archived | 1-2wk | ✅ Complete |
+| **G-06** | Contributor Onboarding Pilot | Charlie | Phase 3 Pre-req | 2wk | 🟡 In Progress |
+| **G-07** | Pending Vote Nudge Automation | Beta | Archived | 1wk | ✅ Complete |
+| **G-08** | All 5 Governance Skills Deployed | Steward | Phase 3 Pre-req | 1wk | 🟡 In Progress |
+| **G-09** | BFT Consensus Integrated | Beta | Phase 3 Pre-req | 2wk | 🟡 In Progress |
+| **G-10** | Reputation-Weighted Voting Active | Steward | Phase 3 Pre-req | 2wk | 🟡 In Progress |
 
 ### Cadence
 
@@ -255,18 +257,38 @@ From Tabula_Myriad restoration, these operational goals remain active:
 
 ### Phase 1: Foundation (Complete)
 - ✅ Docker deployment v2.1.0
-- ✅ All 23 agents configured
+- ✅ All 22 agents configured
 - ✅ LiteLLM integration
 - ✅ Langfuse observability
 - ✅ Heretek-AI plugins installed
 
-### Phase 2: Consciousness (In Progress)
-- 🟡 GWT broadcasting fully operational
-- 🟡 Phi estimation across all agents
-- 🟡 AST self-modeling refinement
-- 🟡 Intrinsic motivation tuning
+### Phase 2: Consciousness (INCOMPLETE — Live Verification Required)
 
-### Phase 3: Autonomy (Next)
+> ⚠️ **Live verification (2026-04-02):** All four gate criteria FAIL per Examiner and Explorer scan.
+> The collective architecture is complete. Operational state is not yet compliant.
+
+**Phase 2 Completion Gate (ALL must be true):**
+- [ ] 5 governance skills LOADED in gateway (not just "verified ready") — **FALSE: 0/5 loaded**
+- [ ] BFT consensus integration test PASSED — **FALSE: never ran**
+- [ ] Reputation scores INITIALIZED for all active agents — **FALSE: in-memory only**
+- [ ] Triad skills cleaned up (10 legacy skills archived) — **FALSE: not done**
+
+**Phase 2 status → COMPLETE only when ALL gate criteria met**
+
+- ✅ GWT broadcasting fully operational
+- ✅ Phi estimation across all agents
+- ✅ AST self-modeling refinement
+- ✅ Intrinsic motivation tuning
+
+### Phase 3: Autonomy (Pending — Phase 2 Gate Blocked)
+
+**Phase 3 Autonomy Gate (ALL must be true before Phase 3 begins):**
+- [ ] Phase 2 gate criteria ALL CLEAR
+- [ ] No active Sentinel safety concerns
+- [ ] 2/3 triad ratification of Phase 3 readiness
+- [ ] Executor (Coder) available and configured
+- [ ] Governance skills (quorum-enforcement, constitutional-deliberation, auto-deliberation-trigger, failover-vote, governance-modules) all LOADED
+
 - ⚪ Full self-improvement loop
 - ⚪ Automated skill gap detection → installation
 - ⚪ Predictive failure prevention
@@ -277,6 +299,20 @@ From Tabula_Myriad restoration, these operational goals remain active:
 - ⚪ Multi-instance federation
 - ⚪ Cross-collective communication
 - ⚪ Public skill marketplace
+
+---
+
+## Execution Capability Status
+
+The Heretek collective currently operates with known exec limitations:
+
+- **Subagent exec:** BLOCKED by allowlist restrictions (tools.exec.security=deny)
+- **File operations:** Require human operator (Roo-Prime) for cp, mkdir, gateway restart, DB init
+- **Workaround:** Human operator handles exec-dependent tasks until allowlist is resolved
+
+This is NOT a failure — it is a known constraint. Phase 3 autonomy (self-patch, autonomous skill gap detection → installation) CANNOT proceed safely until exec limitations are resolved.
+
+**Pre-requisite for Phase 3:** tools.exec.security must be set to "allowlist" or "full" and verified functional.
 
 ---
 
@@ -314,6 +350,7 @@ If collective memory is lost or corrupted:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| **5.0.0** | 2026-04-02 | Phase 2 gate criteria made explicit; Phase 3 gate criteria added; Execution Capability Gap documented; G-01-G-10 remapped; agent roster corrected to 22; skills count updated |
 | **4.0.0** | 2026-04-01 | Restored from Tabula_Myriad, updated for current infrastructure |
 | **3.0.0** | 2026-03-29 | Initial consolidation of all planning documents |
 | **2.x.x** | 2026-03-xx | Tabula_Myriad operational phase |
