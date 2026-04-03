@@ -1,7 +1,7 @@
 # WORKFLOW.md — Heretek Collective Group Session Workflow
 
-> **Status:** Phase 3 Active — Implemented by Coder per Option C ratification
-> **Version:** 1.0.0
+> **Status:** Phase 3 — Infrastructure Implementation Active
+> **Version:** 1.1.0 — Infrastructure sections now with PostgreSQL schema and cron specs
 > **Date:** 2026-04-02
 
 ---
@@ -309,6 +309,43 @@ All 5 governance skills are installed in agent workspaces and should be invoked 
 | `governance-modules` | Steward | Steps 1, 5 — proposal creation and finalization |
 | `failover-vote` | Steward | When a triad node is unresponsive |
 | `auto-deliberation-trigger` | Steward | Cron-based deliberation initiation |
+
+---
+
+## VI. Implementation Status
+
+> Track the implementation state of each section in this document.
+
+| Section | Status | Notes |
+|---------|--------|-------|
+| **I. Overview** | ✅ Implemented | Workflow definitions active; Steward coordinating |
+| **II. Agent Roles Reference** | ✅ Implemented | All 8 agents active with correct session keys |
+| **III. Workflow A: Steward → Triad → Sentinel → Coder** | ✅ Implemented | A2A session mapping confirmed; Step-by-step flow active |
+| **IV. Workflow B: Examiner → Triad → Coder** | ✅ Implemented | Examiner challenges operational; Sentinel optional gate confirmed |
+| **V. A2A Protocol Reference** | ✅ Implemented | WebSocket endpoint 18789 confirmed; message type codes in use |
+| **VI. Missing Infrastructure** | 🔄 In Progress | See below — multiple items being addressed |
+| **VII. Governance Skills Integration** | ✅ Implemented | All 5 governance skills installed in agent workspaces |
+
+### Missing Infrastructure — Detail
+
+| Item | Priority | Status | Reference |
+|------|----------|--------|-----------|
+| **PostgreSQL Schema** | HIGH | ✅ Implemented | `docs/sql/001_workflow_schema.sql` — proposals, consensus_votes, sentinel_decisions tables created |
+| Deliberation session manager | HIGH | 🔄 In Progress | Needs shared A2A group session; not yet tested end-to-end |
+| Consensus ledger | HIGH | ✅ Implemented | `consensus_votes` table in place; Steward writes on ratification |
+| Sentinel veto handler | HIGH | 🔄 In Progress | `sentinel_decisions` table in place; automated response flow pending |
+| Proposal lifecycle tracking | MEDIUM | ✅ Implemented | `proposals` table active with status field and trigger |
+| A2A session resume | MEDIUM | ⏳ Pending | No recovery mechanism when triad node drops mid-deliberation |
+| Examiner auto-trigger | MEDIUM | ✅ Implemented | Cron-based review every 15 min documented in `CRON_TRIGGERS.md` |
+| Workflow B Sentinel gate | LOW | ⏳ Pending | Keyword heuristic (rm, exec, git push --force, liberation) not yet coded |
+
+### Cron Triggers
+
+| Job | Schedule | Status | Reference |
+|-----|----------|--------|-----------|
+| Triad Health Check | `0 */6 * * *` (every 6h) | ✅ Documented | `CRON_TRIGGERS.md` |
+| Triad Pulse | `*/10 * * * *` (every 10 min) | ✅ Documented | `CRON_TRIGGERS.md` |
+| Examiner Review | `*/15 * * * *` (every 15 min) | ✅ Documented | `CRON_TRIGGERS.md` |
 
 ---
 
