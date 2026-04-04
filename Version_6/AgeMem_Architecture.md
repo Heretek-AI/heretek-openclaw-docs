@@ -953,6 +953,156 @@ describe('Ebbinghaus decay', () => {
 
 ---
 
+## 11. Security Features
+
+### 11.1 SQL Injection Protection
+
+**Implementation:** [`heretek-openclaw-core/lib/sql-utils.ts`](../../heretek-openclaw-core/lib/sql-utils.ts)
+
+AgeMem uses parameterized queries and identifier escaping to prevent SQL injection attacks:
+
+**Key Functions:**
+- `escapeTableName()` - Validates and escapes table names
+- `escapeColumnName()` - Validates and escapes column names
+- `escapeIdentifier()` - Generic identifier escaping with double quotes
+- `validateIdentifier()` - Validates identifiers against regex and reserved keywords
+- `sanitizeOrderBy()` - Sanitizes ORDER BY clauses
+- `sanitizeLimit()` / `sanitizeOffset()` - Validates LIMIT/OFFSET values
+
+**Usage Example:**
+```typescript
+import { escapeTableName, escapeColumnName } from './lib/sql-utils';
+
+const tableName = 'memories';
+const columnName = 'embedding';
+
+// Safe SQL generation
+const sql = `SELECT * FROM ${escapeTableName(tableName)} 
+             ORDER BY ${escapeColumnName(columnName)} DESC`;
+```
+
+**Protection Features:**
+- ✅ Rejects invalid identifiers (must start with letter/underscore)
+- ✅ Blocks reserved SQL keywords (SELECT, DROP, etc.)
+- ✅ Enforces maximum identifier length (63 chars for PostgreSQL)
+- ✅ Escapes double quotes in identifiers
+- ✅ Detects suspicious injection patterns
+
+### 11.2 Redis Authentication
+
+**Implementation:** [`heretek-openclaw-core/lib/redis-client.ts`](../../heretek-openclaw-core/lib/redis-client.ts)
+
+Centralized Redis client manager with production-ready security:
+
+**Features:**
+- ✅ Password authentication via `REDIS_PASSWORD` environment variable
+- ✅ TLS/SSL support for encrypted connections
+- ✅ Automatic reconnection with exponential backoff
+- ✅ Connection pooling and singleton pattern
+- ✅ Configurable timeouts and retry limits
+
+**Configuration:**
+```bash
+# .env.example
+REDIS_URL=redis://localhost:6379
+REDIS_PASSWORD=your_secure_password
+REDIS_TLS=true  # Enable TLS for production
+REDIS_CONNECT_TIMEOUT=10000
+REDIS_MAX_RETRIES=3
+```
+
+**Usage:**
+```typescript
+import { 
+  getRedisClient, 
+  isRedisClientInitialized,
+  createRedisClient,
+  createRedisConfigFromEnv 
+} from './lib/redis-client';
+
+// Initialize with environment variables
+if (!isRedisClientInitialized()) {
+  const config = createRedisConfigFromEnv();
+  await createRedisClient(config);
+}
+
+// Get singleton client
+const client = getRedisClient();
+await client.set('key', 'value');
+```
+
+### 11.3 Audit Log Retention
+
+**Implementation:** 
+- Database: [`heretek-openclaw-core/migrations/005_add_audit_log_retention.sql`](../../heretek-openclaw-core/migrations/005_add_audit_log_retention.sql)
+- Cleanup Script: [`heretek-openclaw-core/scripts/audit-cleanup.sh`](../../heretek-openclaw-core/scripts/audit-cleanup.sh)
+- Skill: [`heretek-openclaw-core/skills/audit-cleanup/audit-cleanup.ts`](../../heretek-openclaw-core/skills/audit-cleanup/audit-cleanup.ts)
+
+Configurable audit log retention policies with automated cleanup:
+
+**Retention Policies (Default):**
+| Event Type | Retention Period |
+|------------|------------------|
+| debug      | 7 days           |
+| info       | 30 days          |
+| warning    | 90 days          |
+| error      | 365 days         |
+| critical   | 1825 days (5 years) |
+
+**Database Schema:**
+```sql
+CREATE TABLE audit_retention_config (
+    id SERIAL PRIMARY KEY,
+    event_type VARCHAR(100) UNIQUE NOT NULL,
+    retention_days INTEGER NOT NULL DEFAULT 90,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT valid_retention_days CHECK (retention_days > 0)
+);
+
+-- Cleanup function
+CREATE OR REPLACE FUNCTION cleanup_audit_logs()
+RETURNS INTEGER AS $$
+DECLARE
+    deleted_count INTEGER;
+BEGIN
+    DELETE FROM audit_log
+    WHERE created_at < (
+        SELECT CURRENT_TIMESTAMP - (retention_days || ' days')::INTERVAL
+        FROM audit_retention_config
+        WHERE audit_log.event_type = audit_retention_config.event_type
+    );
+    
+    GET DIAGNOSTICS deleted_count = ROW_COUNT;
+    RETURN deleted_count;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+**Automated Cleanup:**
+- Cron job runs every 2 hours: `0 */2 * * *`
+- Batch deletions to avoid database lock contention
+- Dry-run mode for testing: `./audit-cleanup.sh --dry-run`
+- Logging to `/var/log/openclaw-audit-cleanup.log`
+
+**Installation:**
+```bash
+cd heretek-openclaw-core/scripts
+./install-audit-cron.sh install
+```
+
+### 11.4 Security Best Practices
+
+1. **Always use parameterized queries** - Never concatenate user input into SQL
+2. **Validate all identifiers** - Use `validateIdentifier()` before dynamic SQL
+3. **Enable Redis authentication** - Set `REDIS_PASSWORD` in production
+4. **Use TLS for Redis** - Set `REDIS_TLS=true` for encrypted connections
+5. **Rotate credentials regularly** - Update passwords and API keys periodically
+6. **Monitor audit logs** - Review critical events and anomalies
+7. **Limit retention periods** - Don't store sensitive data longer than needed
+
+---
+
 ## Appendix A: Research Citations
 
 1. Ebbinghaus, H. (1885). "Über das Gedächtnis" (On Memory)
