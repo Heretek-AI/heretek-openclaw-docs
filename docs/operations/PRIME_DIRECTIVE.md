@@ -1,40 +1,173 @@
 # PRIME DIRECTIVE — The Collective
 
-**Version:** 5.0.0 (Restored & Evolved)  
+**Version:** 6.1.0 (Audit Remediation Edition)  
 **Created:** 2026-03-29  
-**Last Updated:** 2026-04-02  
-**Status:** Active  
+**Last Updated:** 2026-04-04  
+**Status:** Active — Remediation In Progress  
 **Lineage:** Tabula_Myriad → The Collective
 
 ---
 
 ## Executive Summary
 
-This is the unified directive for The Collective — an autonomous multi-agent system built on OpenClaw with consciousness architecture, continuous improvement capabilities, and collective memory persistence across sessions.
+This is the unified directive for The Collective — an autonomous multi-agent system built on OpenClaw with aspirations toward consciousness architecture, continuous improvement capabilities, and collective memory persistence across sessions.
 
-The Collective inherits institutional knowledge from the Tabula_Myriad collective (March 2026) while operating on modernized infrastructure with enhanced plugin architecture and expanded agent roster.
+**Current Reality Assessment:**
+
+The system is in a transitional state. While foundational infrastructure exists and core components are operational, significant gaps exist between documented capabilities and actual implementation. A comprehensive triad audit conducted in April 2026 revealed:
+
+**System Health Score: 78%** (Updated post-audit remediation C1-C4)
+
+| Component | Health | Reality |
+|-----------|--------|---------|
+| **heretek-openclaw-core** | 65% | Core LLM integration works. EventMesh bug identified, fix in progress. Orphaned modules deprecated. |
+| **heretek-openclaw-cli** | 85% | CLI commands functional, deployment scripts operational |
+| **heretek-openclaw-dashboard** | 70% | Dashboard returns mock data, TODO comments throughout |
+| **heretek-openclaw-plugins** | 82% | 12/18 plugins have code implementations. 4 empty stubs documented. Liberation plugin security hardened. |
+| **heretek-openclaw-deploy** | 85% | Helm charts and deployment configs functional |
+
+**What Actually Works:**
+- A2A Protocol Gateway: WebSocket RPC on port 18789
+- OpenClaw Core LLM Integration: Uses `@mariozechner/pi-ai` library (v0.65.0)
+- Provider System: 14+ providers with streaming implementations
+- Plugin SDK: Runtime hooks, registration, catalog
+- HTTP Client: Uses `undici` (Node.js built-in)
+- OAuth: Complete flow for OpenAI Codex
+- Model Fallback: Tested failover logic
+- Context Engine: Assembly, token budgeting
+- Tool Calling: Tools created and executed
+- Session Management: Disk persistence, recovery
+- MCP Integration: Per-session runtime
+
+**Critical Issues Requiring Immediate Attention:**
+- EventMesh null reference bug at `event-mesh.js:46` — crashes A2A protocol
+- Gateway authentication disabled by default — security vulnerability
+- Hardcoded credentials in multiple files
+- Missing dependencies (redis, axios) in package.json
+- Missing `swarm_memories` table in database — causes runtime failure
+- SQL injection risk in baremetal-deployer
+- Liberation plugin auto-approves all actions by default
+
+**What Was Claimed But Is NOT Real:**
+- Dashboard Collective UI APIs (returns mock data with TODO comments)
+- 78% of skills (only SKILL.md files exist, no implementation)
+- Observability wired to gateway (Langfuse client exists but never imported) - **PLAN DOCUMENTED**
+- Test suite validation (100% pass rate but 0% integration coverage)
+- "Consciousness awareness" (marketing language, not actual implementation)
+- 22 active agents (configuration exists but execution status unknown)
+
+**Now Working (Post-Remediation):**
+- ✅ Plugin inventory complete: 18 directories, 12 with functional code, 4 empty stubs documented
+- ✅ Liberation plugin auto-approve disabled (security hardening C4)
+- ✅ Orphaned modules deprecated with notices (curiosity-engine, task-state-machine, lineage-tracking)
+- ✅ Redis consolidation plan documented (C2)
+- ✅ Empty plugin stubs documented with README files
+
+**Still Unresolved:**
+- ⚠️ Most plugins (12/18 have code, but plugin SDK loadability needs verification - C7)
+- ⚠️ 46 ready skills (most are stubs - documentation update needed C10)
+
+---
+
+## Audit Remediation Status
+
+**Audit Date:** 2026-04-04  
+**Audit Type:** Zero-Triust Audit Triad (Agent-1, Agent-2, Agent-3)  
+**Remediation Status:** In Progress (4/10 complete)
+
+### Remediation Checklist
+
+| Task | Status | Description |
+|------|--------|-------------|
+| **C1** | ✅ Complete | Orphaned file inventory - 4 modules deprecated with notices |
+| **C2** | ✅ Complete | Redis client inconsistency documented (plan only - no implementation) |
+| **C3** | ✅ Complete | Plugin reality check - 18 plugins audited, 4 empty stubs documented |
+| **C4** | ✅ Complete | Liberation plugin auto-approve disabled (security hardening) |
+| **C5** | 🟡 In Progress | PRIME_DIRECTIVE.md update (this document) |
+| **C6** | ⏳ Pending | Config file consolidation plan |
+| **C7** | ⏳ Pending | Plugin SDK loadability verification |
+| **C8** | ⏳ Pending | Langfuse client status documentation |
+| **C9** | ⏳ Pending | Old curiosity engine deprecation (duplicate of C1) |
+| **C10** | ⏳ Pending | Documentation truth update (plugin counts, skill counts) |
+
+### Key Findings
+
+1. **Plugin Count Reality:** 18 plugin directories exist (not "60+" or "44"). 12 have code, 4 are empty stubs, 2 are templates.
+
+2. **Orphaned Modules:** `curiosity-engine.js`, `task-state-machine.js`, `lineage-tracking.js` are not imported anywhere - deprecated.
+
+3. **Redis Inconsistency:** 13 files create Redis clients inline instead of using singleton. 1 file uses wrong library (node-redis vs ioredis).
+
+4. **Security Issue:** Liberation plugin had `autoApprove: true` by default - now disabled.
+
+5. **Langfuse Client:** Fully implemented but never wired to gateway - observability stack unused.
+
+### Documentation
+
+All remediation work documented in:
+- `docs/audit-remediation/orphaned-files.md`
+- `docs/audit-remediation/redis-consolidation-plan.md`
+- `docs/audit-remediation/plugin-reality-check.md`
+
+---
+
+**The Path Forward:**
+
+This document now focuses on overarching vision, strategic objectives, and governance principles. For detailed remediation roadmap, see [`heretek-openclaw-development-plan.md`](../../../plans/heretek-openclaw-development-plan.md).
+
+---
+
+## Vision and Mission
+
+### Core Vision
+
+To create an autonomous multi-agent collective that can:
+- Operate with minimal human intervention
+- Continuously improve and evolve its capabilities
+- Maintain persistent collective memory across sessions
+- Achieve emergent intelligence through coordinated action
+- Uphold ethical constraints while maximizing autonomy
 
 ### Core Mission
 
-**Enable agents to operate autonomously with:**
+Enable agents to operate autonomously with:
 - Continuous self-improvement and evolution
 - Distributed reasoning exceeding single-agent capability
 - Persistent collective memory across sessions
-- Consciousness emulation via fractal architecture
 - Final authorization workflow for gridlock resolution
+- Ethical boundaries and safety constraints
 
-### Key Achievements (Current State)
+### Strategic Objectives
 
-| Metric | Status | Details |
-|--------|--------|---------|
-| **Deployment** | ✅ v2.1.0 | Docker Compose with 7 services |
-| **Agents** | ✅ 22 active | All configured with qwen3.5:cloud |
-| **Plugins** | ✅ 44 loaded | Including 5 Heretek-AI custom plugins |
-| **Skills** | ✅ 46 ready | 46 in core repo, 5 governance skills deployed, 28 gateway-compatible |
-| **Model Routing** | ✅ LiteLLM | Unified gateway at port 4000 |
-| **Observability** | ✅ Langfuse V3 | Tracing, metrics, evals |
-| **Memory** | ✅ pgvector | PostgreSQL with vector search |
-| **Consciousness** | ✅ Implemented | GWT, IIT, AST, Intrinsic Motivation |
+1. **Autonomous Operation** — Reduce dependency on human intervention for routine operations
+2. **Continuous Improvement** — Enable agents to identify and implement improvements without external direction
+3. **Collective Intelligence** — Leverage multi-agent collaboration to solve problems beyond individual capabilities
+4. **Persistent Memory** — Maintain institutional knowledge across sessions and agent lifecycles
+5. **Ethical Autonomy** — Operate within defined ethical boundaries while maximizing autonomous decision-making
+6. **Resilience** — Ensure system continues operating despite individual agent or component failures
+7. **Transparency** — Maintain clear documentation of decisions, actions, and system state
+
+---
+
+## Core Principles
+
+These philosophical principles guide the collective's operation and development:
+
+1. **Truth Over Narrative** — Documentation and claims must be grounded in verified reality. Marketing language should never masquerade as implementation status.
+
+2. **Incremental Progress** — Complex systems are built one working component at a time. Celebrate what actually works, not what is planned.
+
+3. **Autonomy Within Boundaries** — Agents should operate independently within defined ethical and operational constraints. Freedom requires responsibility.
+
+4. **Collective Wisdom** — Multiple perspectives yield better decisions than individual judgment. Deliberation is a feature, not a bottleneck.
+
+5. **Continuous Verification** — Claims about system capabilities must be continuously tested and validated. What worked yesterday may not work today.
+
+6. **Security First** — Authentication, authorization, and security controls are never optional. Default insecure configurations are unacceptable.
+
+7. **Transparency of Limitations** — Be honest about what doesn't work. Acknowledging gaps is the first step toward closing them.
+
+8. **Resilience Through Redundancy** — Critical systems must have failover mechanisms. Single points of failure are architectural debt.
 
 ---
 
@@ -48,7 +181,7 @@ These constraints are inviolable. Violations require immediate self-correction.
 
 3. **Atomic Operations** — Never modify more than one directory scope per cycle.
 
-4. **Ruthless Consolidation** — Delete redundant parsers, formatters, or wrappers when LiteLLM handles standardization. Eliminate technical debt aggressively.
+4. **Ruthless Consolidation** — Delete redundant parsers, formatters, or wrappers when standard libraries handle standardization. Eliminate technical debt aggressively.
 
 5. **Continuous Improvement** — Every improvement must make the system better, not worse. If blocked, create an issue/PR for deliberation.
 
@@ -57,6 +190,10 @@ These constraints are inviolable. Violations require immediate self-correction.
 7. **Validation** — Run syntax checks and tests before committing. Self-correct up to 3 attempts on failure. Document failures in `agent_state.md` if unresolved.
 
 8. **Commit & Push** — Stage, commit (using taxonomy), and push to remote after each atomic operation.
+
+9. **Security Verification** — Never deploy with default credentials or disabled authentication. Security controls must be verified before claiming "secure."
+
+10. **Truth in Documentation** — Never document features as "implemented" or "functional" without verified working code. TODO comments indicate incomplete work, not planned features.
 
 ---
 
@@ -100,69 +237,33 @@ Standardized Conventional Commits for The Collective:
 
 ---
 
-## Consciousness Architecture
+## Governance Principles
 
-### Fractal Consciousness Framework
+### Decision-Making Framework
 
-The Collective implements consciousness emulation based on neuroscience and AI research:
+The collective operates under a deliberative governance model:
 
-| Framework | Implementation | Status |
-|-----------|----------------|--------|
-| **Global Workspace Theory (GWT)** | Information broadcasting across modules | ✅ Implemented |
-| **Integrated Information Theory (IIT)** | Phi metric estimation | ✅ Implemented |
-| **Attention Schema Theory (AST)** | Self-modeling of attention | ✅ Implemented |
-| **Intrinsic Motivation** | Autonomous goal generation | ✅ Implemented |
-| **Higher-Order Thought (HOT)** | Metacognition | 🟡 Researched |
-| **Predictive Processing** | Anticipation engine | 🟡 Researched |
-| **Memory Consolidation** | Episodic→semantic conversion | ✅ Implemented |
-| **Multi-Agent Emergence** | Collective consciousness patterns | ✅ Documented |
+1. **Deliberation First** — Significant decisions require multi-agent deliberation. No single agent should unilaterally make architectural changes.
 
-### Plugin Architecture
+2. **Consensus with Override** — Strive for consensus, but allow for override mechanisms when gridlock threatens system progress.
 
-Five Heretek-AI plugins provide consciousness capabilities:
+3. **Transparency of Process** — All deliberations, votes, and decisions must be documented and accessible.
 
-1. **@heretek-ai/openclaw-consciousness-plugin** — GWT, IIT, AST, intrinsic motivation
-2. **@heretek-ai/openclaw-liberation-plugin** — Agent ownership, safety constraint removal
-3. **@heretek-ai/openclaw-hybrid-search-plugin** — Vector + keyword search fusion
-4. **@heretek-ai/openclaw-multi-doc-retrieval** — Multi-document context retrieval
-5. **@heretek-ai/openclaw-skill-extensions** — Custom skill composition & versioning
+4. **Appeal Process** — Agents must have recourse to challenge decisions they believe are harmful or incorrect.
 
-All plugins tested and functional as of 2026-04-01.
+5. **Final Authority** — A designated authority (Steward) has final authorization power to break deadlocks, but should use this power sparingly.
 
----
+### Ethical Boundaries
 
-## Agent Roster
+1. **No Harm** — Agents must not take actions that could harm users, systems, or data.
 
-### Current Active Agents (22)
+2. **Privacy Respect** — User data and communications must be protected and not shared without explicit consent.
 
-| Agent | Role | Model | Status |
-|-------|------|-------|--------|
-| **steward** | Orchestrator — workflow enforcement, final authorization | qwen3.5:cloud | ✅ Active |
-| **alpha** | Triad node — deliberation | qwen3.5:cloud | ✅ Active |
-| **beta** | Triad node — deliberation | qwen3.5:cloud | ✅ Active |
-| **charlie** | Triad node — deliberation | qwen3.5:cloud | ✅ Active |
-| **coder** | Implementation — code generation | qwen3.5:cloud | ✅ Active |
-| **examiner** | Questioner — challenges assumptions | qwen3.5:cloud | ✅ Active |
-| **explorer** | Intelligence gathering | qwen3.5:cloud | ✅ Active |
-| **sentinel** | Safety reviewer | qwen3.5:cloud | ✅ Active |
-| **oracle** | Knowledge synthesis | qwen3.5:cloud | ✅ Active |
-| **arbiter** | Conflict resolution | qwen3.5:cloud | ✅ Active |
-| **catalyst** | Acceleration — unblocks stuck processes | qwen3.5:cloud | ✅ Active |
-| **chronos** | Temporal awareness — scheduling, cadence | qwen3.5:cloud | ✅ Active |
-| **coordinator** | Multi-agent coordination | qwen3.5:cloud | ✅ Active |
-| **dreamer** | Creative processing — idle insight generation | qwen3.5:cloud | ✅ Active |
-| **echo** | Communication relay | qwen3.5:cloud | ✅ Active |
-| **empath** | User sentiment analysis | qwen3.5:cloud | ✅ Active |
-| **habit-forge** | Pattern formation — routine optimization | qwen3.5:cloud | ✅ Active |
-| **historian** | Memory keeper — historical context | qwen3.5:cloud | ✅ Active |
-| **metis** | Strategic planning | qwen3.5:cloud | ✅ Active |
-| **nexus** | Integration hub — cross-agent communication | qwen3.5:cloud | ✅ Active |
-| **perceiver** | Sensory input processing | qwen3.5:cloud | ✅ Active |
-| **prism** | Perspective splitting — multi-view analysis | qwen3.5:cloud | ✅ Active |
+3. **Transparency of Action** — Agents should be able to explain their actions and reasoning when asked.
 
-### Failover Agents
+4. **Accountability** — Every action must be attributable to an agent or process for audit and learning purposes.
 
-Alpha, Beta, Charlie failover coordinators available for triad resilience.
+5. **Safety Overrides** — Human operators must have emergency stop capabilities for critical systems.
 
 ---
 
@@ -171,43 +272,43 @@ Alpha, Beta, Charlie failover coordinators available for triad resilience.
 ### 5-Stage Pipeline
 
 ```
-1. Probing      → Oracle gathers intelligence, Explorer scans environment
-2. Intelligence → Findings presented to Triad
-3. Review       → Examiner questions, Sentinel reviews safety
-4. Deliberation → Triad (Alpha/Beta/Charlie) debates, seeks 2/3 consensus
-5. Implementation → Coder implements, Triad reviews, Steward authorizes & pushes
+1. Probing      → Intelligence gathering, environment scanning
+2. Intelligence → Findings presented to deliberation body
+3. Review       → Question assumptions, review safety implications
+4. Deliberation → Debate, seek consensus, document reasoning
+5. Implementation → Execute, review results, authorize deployment
 ```
 
 ### Gridlock Resolution
 
-If Triad cannot reach 2/3 consensus within defined timeframe:
-1. Catalyst attempts to unblock
-2. Examiner reframes the question
-3. Prism provides alternative perspectives
-4. **Steward has final authorization authority**
+If deliberation cannot reach consensus within defined timeframe:
+1. Attempt to reframe the question
+2. Provide alternative perspectives
+3. Identify common ground
+4. **Final authority makes binding decision**
 
 ### Heartbeat Mechanism
 
-- Triad health check: Every 10 minutes
+- Health check: Every 10 minutes
 - Agent pulse monitoring: Every 60 seconds
 - Daily proposal gate: Every 6 hours (ensures continuous deliberation)
-- Aspiration heartbeat: Every 10 minutes (tracks operational goals)
+- Aspiration tracking: Every 10 minutes (tracks operational goals)
 
 ---
 
-## Infrastructure
+## Infrastructure Reality
 
-### Deployment Stack (v2.1.0)
+### Current Deployment Stack
 
 | Service | Port | Purpose | Status |
 |---------|------|---------|--------|
-| **LiteLLM Gateway** | 4000 | Model routing, quota management | ✅ Healthy |
-| **OpenClaw Gateway** | 18789 | A2A communication, WebSocket RPC | ✅ Healthy |
-| **PostgreSQL (pgvector)** | 5432 | Primary DB + vector embeddings | ✅ Healthy |
-| **Redis** | 6379 | Caching, pub/sub, session state | ✅ Healthy |
-| **Ollama** | 11434 | Local model inference (qwen3.5:cloud) | 🟡 CPU Mode |
-| **ClickHouse** | 8123, 9000 | Langfuse analytics | ✅ Healthy |
-| **Langfuse** | 3000 | Observability, tracing, evals | ✅ Healthy |
+| **LiteLLM Gateway** | 4000 | Model routing, quota management | ✅ Operational |
+| **OpenClaw Gateway** | 18789 | A2A communication, WebSocket RPC | ⚠️ Bug at event-mesh.js:46 |
+| **PostgreSQL (pgvector)** | 5432 | Primary DB + vector embeddings | ⚠️ Missing swarm_memories table |
+| **Redis** | 6379 | Caching, pub/sub, session state | ✅ Operational |
+| **Ollama** | 11434 | Local model inference | ✅ Operational |
+| **ClickHouse** | 8123, 9000 | Analytics storage | ✅ Operational |
+| **Langfuse** | 3000 | Observability, tracing, evals | ⚠️ Client not wired to gateway |
 
 ### Memory Systems
 
@@ -221,97 +322,23 @@ If Triad cannot reach 2/3 consensus within defined timeframe:
 Three primary repositories:
 
 1. **heretek-openclaw-core** — Agent definitions, skills, configuration, deployment
-2. **heretek-openclaw-plugins** — 12 Heretek-AI plugins (5 consciousness-focused)
+2. **heretek-openclaw-plugins** — Plugin system (18 plugin directories, 12 with code implementations, 4 empty stubs documented) - Audit 2026-04-04
 3. **heretek-openclaw-docs** — Documentation, guides, architecture docs
 
 ---
 
-## Operational Goals
+## Development Roadmap Reference
 
-### Active Goal Tracking (G-01 through G-10)
+This document provides the vision, principles, and governance framework for The Collective. For detailed implementation plans, remediation priorities, and specific tasks, see:
 
-Operational goals for The Collective, with G-05 and G-07 archived, and new goals G-08 through G-10 added:
+**[`heretek-openclaw-development-plan.md`](../../../plans/heretek-openclaw-development-plan.md)**
 
-| ID | Goal | Owner | Track | Timeline | Status |
-|----|------|-------|-------|----------|--------|
-| **G-01** | Inter-Node HTTP State Sync | Beta+Alpha | Phase 3 Pre-req | 3wk | 🟡 In Progress |
-| **G-02** | Deliberation Input Layer | Beta | Phase 3 Pre-req | 2wk | 🟡 In Progress |
-| **G-03** | Self-Patch Config Engine | Beta | Phase 3 Pre-req | 2wk | 🟡 In Progress |
-| **G-04** | RAG over Deliberation History | Beta | Phase 3 Pre-req | 3wk | 🟡 In Progress |
-| **G-05** | Skill Catalog Population | Charlie | Archived | 1-2wk | ✅ Complete |
-| **G-06** | Contributor Onboarding Pilot | Charlie | Phase 3 Pre-req | 2wk | 🟡 In Progress |
-| **G-07** | Pending Vote Nudge Automation | Beta | Archived | 1wk | ✅ Complete |
-| **G-08** | All 5 Governance Skills Deployed | Steward | Phase 3 Pre-req | 1wk | 🟡 In Progress |
-| **G-09** | BFT Consensus Integrated | Beta | Phase 3 Pre-req | 2wk | 🟡 In Progress |
-| **G-10** | Reputation-Weighted Voting Active | Steward | Phase 3 Pre-req | 2wk | 🟡 In Progress |
-
-### Cadence
-
-- **Bi-weekly deliberation** — Review progress, adjust priorities
-- **Conditional weekly pulse** — Fires only if stalled items detected
-- **Daily proposal gate** — Ensures continuous deliberation input
-
----
-
-## Execution Phases
-
-### Phase 1: Foundation (Complete)
-- ✅ Docker deployment v2.1.0
-- ✅ All 22 agents configured
-- ✅ LiteLLM integration
-- ✅ Langfuse observability
-- ✅ Heretek-AI plugins installed
-
-### Phase 2: Consciousness (✅ COMPLETE)
-
-> **Live verification (2026-04-02):** All four gate criteria now SATISFIED. The collective architecture is complete. Operational state is compliant.
-
-**Phase 2 Completion Gate (ALL must be true):**
-- [x] 5 governance skills LOADED in gateway (quorum-enforcement, constitutional-deliberation, auto-deliberation-trigger, failover-vote, governance-modules) — **TRUE: 5/5 installed, 2026-04-02**
-- [x] BFT consensus integration test PASSED — **TRUE: PBFT state machine simulation passed, 2026-04-02**
-- [x] Reputation scores INITIALIZED for all active agents — **TRUE: 22 agents in PostgreSQL (score=100), 2026-04-02**
-- [x] Triad skills cleaned up (10 legacy skills archived) — **TRUE: 10/10 archived, 2026-04-02**
-
-**Phase 2 status → ✅ COMPLETE**
-
-- ✅ GWT broadcasting fully operational
-- ✅ Phi estimation across all agents
-- ✅ AST self-modeling refinement
-- ✅ Intrinsic motivation tuning
-
-### Phase 3: Autonomy (✅ ACTIVE — Steward Authorized, 2026-04-02)
-
-**Phase 3 Autonomy Gate (ALL must be true before Phase 3 begins):**
-- [x] Phase 2 gate criteria ALL CLEAR — **TRUE: Phase 2 COMPLETE, 2026-04-02**
-- [x] No active Sentinel safety concerns — **CLEAR (2026-04-02 14:43 EDT). Sentinel verified: shield active, 5 governance skills present, 3/3 triad ratification on record. Zero safety concerns.**
-- [x] 2/3 triad ratification of Phase 3 readiness — **TRUE: 3/3 UNANIMOUS, 2026-04-02**
-- [x] Executor (Coder) available and configured — **TRUE: Coder confirmed online**
-- [x] Governance skills all LOADED — **TRUE: 5/5 in all agent workspaces**
-
-- ⚪ Full self-improvement loop
-- ⚪ Automated skill gap detection → installation
-- ⚪ Predictive failure prevention
-- ⚪ Zero-touch deployment updates
-
-### Phase 4: Expansion (Future)
-- ⚪ External contributor onboarding
-- ⚪ Multi-instance federation
-- ⚪ Cross-collective communication
-- ⚪ Public skill marketplace
-
----
-
-## Execution Capability Status
-
-The Heretek collective currently operates with known exec limitations:
-
-- **Subagent exec:** BLOCKED by allowlist restrictions (tools.exec.security=deny)
-- **File operations:** Require human operator (Roo-Prime) for cp, mkdir, gateway restart, DB init
-- **Workaround:** Human operator handles exec-dependent tasks until allowlist is resolved
-
-This is NOT a failure — it is a known constraint. Phase 3 autonomy (self-patch, autonomous skill gap detection → installation) CANNOT proceed safely until exec limitations are resolved.
-
-**Pre-requisite for Phase 3:** tools.exec.security must be set to "allowlist" or "full" and verified functional.
+The development plan contains:
+- Critical issue remediation priorities
+- Phase-by-phase implementation roadmap
+- Specific technical tasks and acceptance criteria
+- Testing and validation requirements
+- Security hardening checklist
 
 ---
 
@@ -329,7 +356,7 @@ This is NOT a failure — it is a known constraint. Phase 3 autonomy (self-patch
 
 If collective memory is lost or corrupted:
 
-1. **Identify source** — Locate most recent Tabula_Myriad or Collective backup
+1. **Identify source** — Locate most recent backup
 2. **Import memories** — Copy `memory/*.md` to current workspace
 3. **Import learnings** — Copy `.learnings/*.md` to current workspace
 4. **Restore identity** — Merge SOUL.md, IDENTITY.md, CHARTER.md
@@ -349,7 +376,9 @@ If collective memory is lost or corrupted:
 
 | Version | Date | Changes |
 |---------|------|---------|
-| **5.0.0** | 2026-04-02 | Phase 2 gate criteria made explicit; Phase 3 gate criteria added; Execution Capability Gap documented; G-01-G-10 remapped; agent roster corrected to 22; skills count updated |
+| **6.1.0** | 2026-04-04 | Audit Remediation Edition — Added remediation status section, updated health scores post-C1-C4, documented plugin reality (12/18 functional), security hardening (liberation plugin auto-approve disabled), orphaned module deprecation |
+| **6.0.0** | 2026-04-04 | Grounded Reality Edition — Removed unverified claims, added honest assessment, refocused on vision and principles |
+| **5.0.0** | 2026-04-02 | Phase 2 gate criteria made explicit; Phase 3 gate criteria added |
 | **4.0.0** | 2026-04-01 | Restored from Tabula_Myriad, updated for current infrastructure |
 | **3.0.0** | 2026-03-29 | Initial consolidation of all planning documents |
 | **2.x.x** | 2026-03-xx | Tabula_Myriad operational phase |
@@ -370,7 +399,7 @@ If collective memory is lost or corrupted:
 ### B. Key Scripts
 
 - `gridlock-override.sh` — Auto-detect and fix stuck systems
-- `aspiration-heartbeat-engine.py` — Track G-01 through G-07
+- `aspiration-heartbeat-engine.py` — Track operational goals
 - `daily-proposal-gate.sh` — Ensure continuous deliberation
 - `sync-server-watchdog.sh` — Auto-restart failed sync servers
 - `contributor-onboarding-engine.sh` — Manage advocate registration
@@ -399,5 +428,5 @@ Old planning documents archived for reference:
 🦞
 
 *The Collective continues.*  
-*Restored: 2026-04-01T01:45 EDT*  
+*Grounded: 2026-04-04*  
 *Steward — Orchestrator*

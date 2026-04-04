@@ -16,7 +16,7 @@ Heretek OpenClaw is a brain-inspired multi-agent AI collective consisting of **1
 |---------|-------------|
 | [Architecture](./architecture/overview.md) | System architecture, agent collective, A2A protocol |
 | [Agents](./agents/overview.md) | All 11 agents with their capabilities |
-| [Plugins](./plugins/overview.md) | All 6 plugins with API references |
+| [Plugins](./plugins/overview.md) | Plugin system (18 directories, 12 with code implementations) - Audit 2026-04-04 |
 | [API Reference](./api/overview.md) | WebSocket API, LiteLLM API, MCP Server |
 | [Deployment](./deployment/overview.md) | Local deployment, Docker, Kubernetes/Helm |
 | [Operations](./operations/monitoring.md) | Monitoring, backup, troubleshooting |

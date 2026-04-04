@@ -137,7 +137,9 @@ No dedicated BFT consensus integration test exists for:
 ## Gate Criterion 3: Reputation Scores INITIALIZED for All Active Agents
 
 ### Requirement
-Reputation scores must be initialized for all 22 active agents with PostgreSQL persistence.
+Reputation scores must be initialized for all 22 configured agents (runtime status varies) with PostgreSQL persistence.
+
+**Audit Note (2026-04-04):** "22 active agents" refers to agent configurations in `openclaw.json`. Actual runtime activation status varies and should be verified via heartbeat monitoring.
 
 ### Current State
 
