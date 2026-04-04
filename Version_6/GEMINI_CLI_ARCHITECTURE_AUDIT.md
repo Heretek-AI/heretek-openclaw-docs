@@ -23,10 +23,16 @@
 *   **Codebase Reality:** The core still contains highly monolithic skill structures (e.g., `curiosity-engine.sh` orchestrates 5 engines in a single block). However, there are signs of initial decomposition, such as the existence of a standalone `skills/gap-detector`. Full decomposition into independent Lobe Agents is incomplete.
 
 ## 4. Unified Memory Policy (AgeMem)
-**Audit Status:** Confirmed Deficit (Documentation Only)
+**Audit Status:** 🟡 In Progress — Foundation Implemented
 
 *   **Finding:** Memory is fragmented (pgvector for semantic, Redis for cache). "Intelligent Forgetting" via AgeMem and Ebbinghaus Decay is needed.
-*   **Codebase Reality:** The architecture relies on PostgreSQL + pgvector and Redis. A search for `AgeMem` and `Ebbinghaus` reveals these are purely theoretical concepts documented in `2026-STRATEGIC-ROADMAP.md` and skill descriptions. No unified memory policy or algorithmic decay exists in the functional codebase.
+*   **Codebase Reality:** The architecture relies on PostgreSQL + pgvector and Redis.
+    *   **✅ Implemented (2026-04-04):** Ebbinghaus decay math utility in [`heretek-openclaw-core/skills/memory-consolidation/decay.ts`](../../heretek-openclaw-core/skills/memory-consolidation/decay.ts)
+    *   **✅ Implemented:** `memory_retrieve(query, recency_weight)` function with temporal decay weighting
+    *   **✅ Implemented:** `applyEbbinghausDecayToScore()` with repetition boost and floor protection
+    *   **🟡 Pending:** Integration with PostgreSQL pgvector for automatic decay on retrieval
+    *   **🟡 Pending:** `memory_add()` function to complete the AgeMem API pair
+*   **Next Steps:** Wire decay utility into memory retrieval pipeline; create `importance-scorer` lobe agent
 
 ## 5. Security and Triad Consensus
 **Audit Status:** Mixed State / In Transition
@@ -35,4 +41,11 @@
 *   **Codebase Reality:** A production-ready `BFTConsensus` module exists (`bft-consensus.js`). However, many legacy triad management skills have recently been archived (`archive/triad-skills/`). While Alpha, Beta, and Charlie are designated as Triad Members, the strict enforcement of consensus around memory modification via containerized Lobe isolation appears loosely coupled and is not fully realized as the mandatory infrastructure described in the refactor priorities.
 
 ## Strategic Recommendation
-The architectural refactor priorities outlined in the review accurately reflect the significant technical debt in the current repositories. Prioritizing either the OpenClaw Gateway decentralization or the AgeMem unified memory policy will require substantial foundational work, as neither has meaningful implementation in the current codebase.
+The architectural refactor priorities outlined in the review accurately reflect the significant technical debt in the current repositories.
+
+**Status Update (2026-04-04):** AgeMem unified memory policy now has foundational implementation:
+- ✅ Ebbinghaus decay utility implemented with full test coverage
+- ✅ `memory_retrieve()` API function available for integration
+- 🟡 Next priority: Integration with pgvector retrieval pipeline
+
+**Priority Recommendation:** Continue with AgeMem first approach. The decay foundation is complete; integration work should proceed before Lobe Agent decomposition to ensure all agents inherit shared memory infrastructure.
