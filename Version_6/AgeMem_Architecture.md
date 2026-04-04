@@ -764,20 +764,73 @@ const ranked = await memory_retrieve({
 
 | Operation | Permission Required |
 |-----------|---------------------|
-| `memory_add` | Any authenticated agent |
+| `memory_add` | Any authenticated agent with trust score >= 30 |
 | `memory_retrieve` | Any authenticated agent |
 | `memory_update` | Memory owner OR Triad consensus |
 | `memory_delete` | Triad consensus (2/3) |
 | `memory_summarize` | Historian agent OR Triad consensus |
+| High-trust operations | Trust score >= 70 |
+| Critical operations | Trust score >= 85 |
 
-### 6.2 Memory Poisoning Prevention
+### 6.2 Agent Reputation System
 
-- **Write Permissions:** Gated by agent reputation score
+**Phase 5 Security Hardening** introduced a comprehensive reputation system:
+
+- **Trust Scoring:** Dynamic 0-100 reputation scores for all agents
+  - Initial score: 50 for new agents
+  - Write permission threshold: 30
+  - High-trust threshold: 70
+  - Critical operation threshold: 85
+
+- **Score Adjustments:**
+  - Successful write: +2 (with consecutive bonus up to +10)
+  - Violation: -10
+  - Memory poisoning detection: -25
+  - God Mode attempt: -30
+  - Inactivity decay: -1 per day after 7 days
+
+- **Recovery Mechanisms:**
+  - Probation period: 3 days after violation
+  - Recovery rate: +3 per day of good behavior
+  - Consecutive success bonus: +0.5 per success (capped at +10)
+
+- **Audit Trail:** Complete reputation history and activity logging
+
+**Reference:** [`reputation-system.ts`](../../heretek-openclaw-core/skills/agemem-governance/reputation-system.ts)
+
+### 6.3 Container Isolation
+
+**Phase 5 Security Hardening** implemented process isolation for Lobe Agents:
+
+- **Resource Limits:**
+  - CPU: 1 core per agent (configurable)
+  - Memory: 512MB per agent
+  - Disk: 1GB per agent
+  - Network: 100Mbps per agent
+
+- **Security Profiles:**
+  - Default profile: Balanced security with common syscalls allowed
+  - Strict profile: Minimal permissions for high-security operations
+
+- **Syscall Blocking:** Dangerous syscalls blocked (ptrace, mount, reboot, etc.)
+
+- **Path Blocking:** Sensitive paths protected (/etc/shadow, /root, /dev/mem, etc.)
+
+- **Command Whitelisting:** Only approved commands allowed (node, npm, git, etc.)
+
+- **Violation Tracking:** Resource, security, and execution violations with severity levels
+
+**Reference:** [`container-isolation.ts`](../../heretek-openclaw-core/skills/agemem-governance/container-isolation.ts)
+
+### 6.4 Memory Poisoning Prevention
+
+- **Write Permissions:** Gated by agent reputation score (minimum 30)
 - **Content Validation:** Liberation Shield strict mode for inter-agent memory writes
 - **Audit Logging:** All memory operations logged to consensus ledger
 - **Anomaly Detection:** Unusual access patterns trigger Sentinel review
+- **Poison Detection:** Automatic detection with -25 reputation penalty
 
-### 6.3 God Mode Prevention
+### 6.5 God Mode Prevention
 
 The Ebbinghaus decay implementation is **read-only** — it calculates scores but cannot:
 - Modify memory content
@@ -785,9 +838,16 @@ The Ebbinghaus decay implementation is **read-only** — it calculates scores bu
 - Bypass consensus requirements
 - Access external systems
 
+**Additional Protections:**
+- God Mode attempts detected and logged with -30 reputation penalty
+- Container isolation prevents privilege escalation
+- Seccomp/AppArmor profiles block system-level attacks
+
 ---
 
 ## 7. Implementation Status
+
+### 7.1 Core Memory API
 
 | Component | Status | File Reference |
 |-----------|--------|----------------|
@@ -801,9 +861,26 @@ The Ebbinghaus decay implementation is **read-only** — it calculates scores bu
 | `track_memory_access()` SQL | ✅ Implemented | [`agemem-init.sql`](../../heretek-openclaw-deploy/observability/config/agemem-init.sql:299) |
 | `calculate_review_interval()` SQL | ✅ Implemented | [`agemem-init.sql`](../../heretek-openclaw-deploy/observability/config/agemem-init.sql:329) |
 | `memories_with_decay` view | ✅ Implemented | [`agemem-init.sql`](../../heretek-openclaw-deploy/observability/config/agemem-init.sql:152) |
-| Redis TTL integration | 🟡 Pending | — |
-| `importance-scorer` lobe | 🟡 Pending | — |
-| `archivist` lobe | 🟡 Pending | — |
+
+### 7.2 Security & Governance (Phase 5)
+
+| Component | Status | File Reference | Tests |
+|-----------|--------|----------------|-------|
+| Agent Reputation System | ✅ Implemented | [`reputation-system.ts`](../../heretek-openclaw-core/skills/agemem-governance/reputation-system.ts) | 63 |
+| Container Isolation | ✅ Implemented | [`container-isolation.ts`](../../heretek-openclaw-core/skills/agemem-governance/container-isolation.ts) | 51 |
+| Trust Score Permission Gates | ✅ Implemented | [`reputation-system.ts`](../../heretek-openclaw-core/skills/agemem-governance/reputation-system.ts:188) | — |
+| Security Profiles (Default/Strict) | ✅ Implemented | [`container-isolation.ts`](../../heretek-openclaw-core/skills/agemem-governance/container-isolation.ts:149) | — |
+| Syscall/Path Blocking | ✅ Implemented | [`container-isolation.ts`](../../heretek-openclaw-core/skills/agemem-governance/container-isolation.ts:362) | — |
+
+### 7.3 Pending Components
+
+| Component | Status | File Reference |
+|-----------|--------|----------------|
+| Redis TTL integration | ✅ Implemented | [`redis-ttl-manager.ts`](../../heretek-openclaw-core/skills/redis-ttl-manager/redis-ttl-manager.ts) |
+| `importance-scorer` lobe | ✅ Implemented | [`importance-scorer.ts`](../../heretek-openclaw-core/skills/importance-scorer/importance-scorer.ts) |
+| `archivist` lobe | ✅ Implemented | [`archivist.ts`](../../heretek-openclaw-core/skills/archivist/archivist.ts) |
+| Automatic rollback mechanisms | 🟡 Pending | — |
+| Liberation Shield strict mode for A2A | 🟡 Pending | — |
 
 ---
 
